@@ -10,35 +10,21 @@
 
     <script>
         // Define the URL where the JSON data is located
-        const dataUrl = 'https://script.google.com/a/macros/moonlabs.ai/s/AKfycbzy6xVXlYKFe8JC7VuzXqYBlafKcbrm1IfsYEtTqsIWmdHP9QUNCdYDRfj-V3VLJh6gDg/exec';
+        const dataUrl = 'https://script.google.com/a/macros/moonlabs.ai/s/AKfycbzfP-Oa0GTisPEr3xLiy4qLbjBrYZSCI0KgIO_D29IPPbu8jN0bfNW9cvhrkDK_ruYTqw/exec';
 
         // Function to fetch and display the JSON data
         function fetchAndDisplayJson() {
-            fetch(
-                dataUrl,
-                {
-                    redirect: "follow",
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "text/plain;charset=utf-8",
-                    },
+            fetch(dataUrl, {
+                method: 'POST',
+                body: data,
+                headers: {
+                    'Content-Type': 'text/plain;charset=utf-8',
                 }
-            ).then(response => {
-                    if (!response.ok) {
-                        // If the response is not ok, throw an error with the status text
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    // Display the JSON data as a string in the <pre> tag
-                    document.getElementById('jsonDataDisplay').textContent = JSON.stringify(data, null, 2);
-                })
-                .catch(error => {
-                    // Display the error message in the <pre> tag
-                    document.getElementById('jsonDataDisplay').textContent = `Error fetching data: ${error.message}`;
-                    console.error('There was a problem with the fetch operation:', error);
-                });
+            }).then(response => {
+                console.log("success:", response);
+            }).catch(err => {
+                console.log("Error:" + err);
+            });
         }
 
         // Call the function to fetch and display JSON data when the page loads
