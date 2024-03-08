@@ -14,8 +14,16 @@
 
         // Function to fetch and display the JSON data
         function fetchAndDisplayJson() {
-            fetch(dataUrl)
-                .then(response => {
+            fetch(
+                dataUrl,
+                {
+                    redirect: "follow",
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "text/plain;charset=utf-8",
+                    },
+                }
+            ).then(response => {
                     if (!response.ok) {
                         // If the response is not ok, throw an error with the status text
                         throw new Error(`HTTP error! status: ${response.status}`);
