@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Display JSON Data</title>
+    <title>Sales Call Analysis</title>
 </head>
 <body>
-    <h1>JSON Data Display</h1>
-    <pre id="jsonDataDisplay"></pre> <!-- Place where JSON will be displayed -->
+    <h1>Sales Call Analysis</h1>
+    <pre id="jsonDataDisplay"></pre> <!-- Place where JSON will be displayed or errors -->
 
     <script>
         // Define the URL where the JSON data is located
@@ -17,7 +17,8 @@
             fetch(dataUrl)
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error('Network response was not ok');
+                        // If the response is not ok, throw an error with the status text
+                        throw new Error(`HTTP error! status: ${response.status}`);
                     }
                     return response.json();
                 })
@@ -26,6 +27,8 @@
                     document.getElementById('jsonDataDisplay').textContent = JSON.stringify(data, null, 2);
                 })
                 .catch(error => {
+                    // Display the error message in the <pre> tag
+                    document.getElementById('jsonDataDisplay').textContent = `Error fetching data: ${error.message}`;
                     console.error('There was a problem with the fetch operation:', error);
                 });
         }
@@ -34,4 +37,5 @@
         window.onload = fetchAndDisplayJson;
     </script>
 </body>
+
 </html>
